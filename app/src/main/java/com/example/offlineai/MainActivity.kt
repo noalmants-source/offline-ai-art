@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
         ) {
             // Título con Gradiente
             Text(
-                text = "OFFLINE AI ART",
+                text = "ARTE IA OFFLINE",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 brush = Brush.horizontalGradient(
