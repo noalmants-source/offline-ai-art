@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Clonar Repositorio Principal
@@ -42,9 +44,14 @@ jobs:
       run: |
         ./gradlew assembleRelease --stacktrace
 
+    - name: Rename APK for release
+      run: |
+        mv app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/ArteIAOffline.apk
 
-    - name: Subir Instalador APK Compilado
-      uses: actions/upload-artifact@v4
+    - name: Create Release and Upload APK
+      uses: softprops/action-gh-release@v2
       with:
-        name: OfflineAIArt-Release-APK
-        path: app/build/outputs/apk/release/app-release-unsigned.apk
+        tag_name: v1.0.0
+        name: Release v1.0.0
+        files: app/build/outputs/apk/release/ArteIAOffline.apk
+        token: ${{ secrets.GITHUB_TOKEN }}
