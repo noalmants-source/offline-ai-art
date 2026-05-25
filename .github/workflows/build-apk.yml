@@ -34,15 +34,14 @@ jobs:
       run: |
         git clone --recursive https://github.com/leejet/stable-diffusion.cpp.git app/src/main/cpp/stable-diffusion.cpp
 
-    - name: Generar Gradle Wrapper en la Nube
-      run: gradle wrapper
-
-    - name: Asegurar Ejecución de Gradle Wrapper
-      run: chmod +x gradlew
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+      with:
+        gradle-version: '8.2'
 
     - name: Compilar APK de Lanzamiento (Release)
       run: |
-        ./gradlew assembleRelease --stacktrace
+        gradle assembleRelease --stacktrace
 
     - name: Rename APK for release
       run: |
